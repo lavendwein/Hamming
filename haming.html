@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Haming code</title>
+		<script>
+			function code(){
+				let message = document.getElementById('inputData').value;
+				if (message.length > 4){
+					message = message.slice(0, 4);
+				}
+				let inputDigits = message.split('');
+				
+						
+				for (let i = 0; i < inputDigits.length; i++){
+					inputDigits[i] = inputDigits[i] * 1;
+				}
+				
+				inputDigits.push((inputDigits[0] + inputDigits[1] + inputDigits[3]) % 2);
+				inputDigits.push((inputDigits[0] + inputDigits[2] + inputDigits[3]) % 2);
+				inputDigits.push((inputDigits[1] + inputDigits[2] + inputDigits[3]) % 2);
+					
+				document.getElementById('codedData').value = inputDigits.join('');
+			}
+			
+			function decode(){
+				let message = document.getElementById('codedData').value;
+				let inputDigits = message.split('');
+				let exam = new Array();
+				
+				for (let i = 0; i < inputDigits.length; i++){
+					inputDigits[i] = inputDigits[i] * 1;
+				}
+				
+				for (i = 0; i < message.length; i++){
+					exam.push(0);
+					
+				}
+				
+				if (((inputDigits[0] + inputDigits[1] + inputDigits[3]) % 2) != inputDigits[4]){
+					exam[0]--;
+					exam[1]--;
+					exam[3]--;
+					exam[4]--;
+				}else{
+					exam[0]++;
+					exam[1]++;
+					exam[3]++;
+					exam[4]++;
+				}
+				
+				if (((inputDigits[0] + inputDigits[2] + inputDigits[3]) % 2) != inputDigits[5]){
+					exam[0]--;
+					exam[2]--;
+					exam[3]--;
+					exam[5]--;
+				}else{
+					exam[0]++;
+					exam[2]++;
+					exam[3]++;
+					exam[5]++;
+				}
+				
+				if (((inputDigits[1] + inputDigits[2] + inputDigits[3]) % 2) != inputDigits[6]){
+					exam[1]--;
+					exam[2]--;
+					exam[3]--;
+					exam[6]--;
+				}else{
+					exam[1]++;
+					exam[2]++;
+					exam[3]++;
+					exam[6]++;
+				}
+				
+				
+				let m = 0;
+				let errorDigit = 0;
+				for(i = 0; i < exam.length; i++){
+					if (exam[i] < m){
+						m = exam[i];
+						errorDigit = i;
+					}
+					
+				} 
+				
+				if (m < 0){
+					if (inputDigits[errorDigit] == 0){
+						inputDigits[errorDigit] = 1;
+					}else{
+						inputDigits[errorDigit] = 0;
+					}
+					document.getElementById('decodedData').value = inputDigits.join('');
+				}else{
+					document.getElementById('decodedData').value = inputDigits.join('');
+				} 
+			}
+		</script>
+	</head>
+	
+	<body>
+		<p><input type = 'text' id = 'inputData' /> input data </p>
+		<p><input type = 'button' onclick = 'code()' value = 'Code'/></p>
+		<p><input type = 'text' id = 'codedData' /> coded data</p>
+		<p><input type = 'button' onclick = 'decode()' value = 'Decode'/></p>
+		<p><input type = 'text' id = 'decodedData' /> decoded data</p>
+	</body>
+</html>
+
+
