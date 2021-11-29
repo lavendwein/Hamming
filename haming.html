@@ -90,10 +90,12 @@
 					}else{
 						inputDigits[errorDigit] = 0;
 					}
+					document.getElementById('error').value = 'Error in '+errorDigit+' position';
 					document.getElementById('decodedData').value = inputDigits.join('');
 				}else{
 					document.getElementById('decodedData').value = inputDigits.join('');
-				} 
+					document.getElementById('error').value = 'No error';
+				}
 			}
 		</script>
 	</head>
@@ -104,6 +106,7 @@
 		<p><input type = 'text' id = 'codedData' /> coded data</p>
 		<p><input type = 'button' onclick = 'decode()' value = 'Decode'/></p>
 		<p><input type = 'text' id = 'decodedData' /> decoded data</p>
+		<p><input type = 'text' id = 'error' /> </p>
 	</body>
 </html>
 
